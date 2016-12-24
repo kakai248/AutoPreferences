@@ -1,7 +1,14 @@
 apply plugin: 'java'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+ext {
+    artifact = 'compiler'
+}
+
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
+targetCompatibility = rootProject.ext.targetCompatibilityVersion
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -11,3 +18,5 @@ dependencies {
     compile 'com.google.android:android:4.1.1.4'
     compile group: 'com.google.guava', name: 'guava', version: '18.0'
 }
+
+apply from: '../android-jcenter.gradle'
