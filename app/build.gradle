@@ -1,5 +1,5 @@
 plugins {
-    id "me.tatarka.retrolambda" version "3.4.0"
+    id "me.tatarka.retrolambda" version "3.5.0"
 }
 
 apply plugin: 'com.android.application'
@@ -41,7 +41,7 @@ dependencies {
     compile project(':backup')
     annotationProcessor project(':compiler')
 
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.1.1'
 
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
