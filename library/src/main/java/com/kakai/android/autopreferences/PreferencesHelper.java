@@ -24,73 +24,73 @@ public class PreferencesHelper {
         editor = sharedPreferences.edit();
     }
 
-    static PreferencesHelper with(Context context) {
-        if(instance == null) {
+    public static PreferencesHelper with(Context context) {
+        if (instance == null) {
             instance = new Builder(context, null, -1).build();
         }
         return instance;
     }
 
-    static PreferencesHelper with(Context context, String name, int mode) {
-        if(instance == null) {
+    public static PreferencesHelper with(Context context, String name, int mode) {
+        if (instance == null) {
             instance = new Builder(context, name, mode).build();
         }
         return instance;
     }
 
-    void putBoolean(String key, boolean value) {
+    public void putBoolean(String key, boolean value) {
         editor.putBoolean(key, value).apply();
     }
 
-    void putString(String key, String value) {
+    public void putString(String key, String value) {
         editor.putString(key, value).apply();
     }
 
-    void putInt(String key, int value) {
+    public void putInt(String key, int value) {
         editor.putInt(key, value).apply();
     }
 
-    void putFloat(String key, float value) {
+    public void putFloat(String key, float value) {
         editor.putFloat(key, value).apply();
     }
 
-    void putLong(String key, long value) {
+    public void putLong(String key, long value) {
         editor.putLong(key, value).apply();
     }
 
-    void putStringSet(String key, Set<String> value) {
+    public void putStringSet(String key, Set<String> value) {
         editor.putStringSet(key, value).apply();
     }
 
-    <T extends Enum<T>> void putEnum(String key, T value) {
+    public <T extends Enum<T>> void putEnum(String key, T value) {
         editor.putString(key, value.name()).apply();
     }
 
-    boolean getBoolean(String key, boolean defValue) {
+    public boolean getBoolean(String key, boolean defValue) {
         return sharedPreferences.getBoolean(key, defValue);
     }
 
-    String getString(String key, String defValue) {
+    public String getString(String key, String defValue) {
         return sharedPreferences.getString(key, defValue);
     }
 
-    int getInt(String key, int defValue) {
+    public int getInt(String key, int defValue) {
         return sharedPreferences.getInt(key, defValue);
     }
 
-    float getFloat(String key, float defValue) {
+    public float getFloat(String key, float defValue) {
         return sharedPreferences.getFloat(key, defValue);
     }
 
-    long getLong(String key, long defValue) {
+    public long getLong(String key, long defValue) {
         return sharedPreferences.getLong(key, defValue);
     }
 
-    Set<String> getStringSet(String key, Set<String> defValue) {
+    public Set<String> getStringSet(String key, Set<String> defValue) {
         return sharedPreferences.getStringSet(key, defValue);
     }
 
-    <T extends Enum<T>> T getEnum(String key, T defValue, Class<T> type) {
+    public <T extends Enum<T>> T getEnum(String key, T defValue, Class<T> type) {
         return Enum.valueOf(type, sharedPreferences.getString(key, defValue.name()));
     }
 
@@ -98,7 +98,7 @@ public class PreferencesHelper {
         return sharedPreferences.getAll();
     }
 
-    void remove(String key) {
+    public void remove(String key) {
         editor.remove(key).apply();
     }
 
@@ -106,7 +106,7 @@ public class PreferencesHelper {
         editor.clear().apply();
     }
 
-    boolean contains(String key) {
+    public boolean contains(String key) {
         return sharedPreferences.contains(key);
     }
 
@@ -116,7 +116,7 @@ public class PreferencesHelper {
         private final String name;
 
         Builder(Context context, String name, int mode) {
-            if(context == null) {
+            if (context == null) {
                 throw new IllegalArgumentException("Context must not be null.");
             }
             this.context = context;
@@ -125,7 +125,7 @@ public class PreferencesHelper {
         }
 
         PreferencesHelper build() {
-            if(mode == -1 || name == null) {
+            if (mode == -1 || name == null) {
                 return new PreferencesHelper(context);
             }
             return new PreferencesHelper(context, name, mode);
