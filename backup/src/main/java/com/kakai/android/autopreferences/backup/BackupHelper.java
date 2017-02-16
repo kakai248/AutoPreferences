@@ -80,7 +80,8 @@ public class BackupHelper {
                             // I'm sorry!
                             // http://stackoverflow.com/a/1901275
                             Class<Enum> tClass = (Class<Enum>) ((ParameterizedType) type.getGenericSuperclass()).getActualTypeArguments()[0];
-                            param = Enum.valueOf(tClass, (String) values.get(key));
+                            String value = (String) values.get(key);
+                            param = value != null ? Enum.valueOf(tClass, value) : null;
                         }
 
                         // Special case to handle floats

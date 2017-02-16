@@ -1,6 +1,5 @@
 AutoPreferences
 =========================
-[![Bintray](https://img.shields.io/bintray/v/kakai248/maven/autopreferences.svg)](https://bintray.com/kakai248/maven/autopreferences/view)
 
 This library generates a preferences class to manage preferences
 in Android based on annotations.
@@ -9,17 +8,15 @@ Installation
 ------
 This library requires Java 8 to run the annotation processor.
 
-You can check the lastest version number at the top of this README.
-
 ```groovy
-compile 'com.kakai.android.autopreferences:library:${LATEST_VERSION}'
-annotationProcessor 'com.kakai.android.autopreferences:compiler:${LATEST_VERSION}'
+compile "com.github.kakai248.AutoPreferences:library:v0.1.2"
+annotationProcessor "com.github.kakai248.AutoPreferences:compiler:v0.1.2"
 ```
 
 **Backup (optional):**
 
 ```groovy
-compile 'com.kakai.android.autopreferences:backup:${LATEST_VERSION}'
+compile "com.github.kakai248.AutoPreferences:backup:v0.1.2"
 ```
 
 Usage
