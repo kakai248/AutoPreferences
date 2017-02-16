@@ -9,14 +9,14 @@ Installation
 This library requires Java 8 to run the annotation processor.
 
 ```groovy
-compile "com.github.kakai248.AutoPreferences:library:v0.1.1"
-annotationProcessor "com.github.kakai248.AutoPreferences:compiler:v0.1.1"
+compile "com.github.kakai248.AutoPreferences:library:v0.1.2"
+annotationProcessor "com.github.kakai248.AutoPreferences:compiler:v0.1.2"
 ```
 
 **Backup (optional):**
 
 ```groovy
-compile "com.github.kakai248.AutoPreferences:backup:v0.1.1"
+compile "com.github.kakai248.AutoPreferences:backup:v0.1.2"
 ```
 
 Usage
