@@ -83,19 +83,19 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if(view == btnChangeInt) {
+        if (view == btnChangeInt) {
             preferencesManager.setTestInt((int) (Math.random() * 100));
             setIntText();
-        } else if(view == btnResetInt) {
+        } else if (view == btnResetInt) {
             preferencesManager.removeTestInt();
             setIntText();
-        } else if(view == btnRead) {
+        } else if (view == btnRead) {
             read();
-        } else if(view == btnWrite) {
+        } else if (view == btnWrite) {
             write();
-        } else if(view == btnBackup) {
+        } else if (view == btnBackup) {
             backup();
-        } else if(view == btnRestore) {
+        } else if (view == btnRestore) {
             restore();
         }
     }
@@ -108,7 +108,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, Object> values = BackupHelper.with(this).read(preferencesManager, Preference.ALL);
 
         System.out.println("------- READ -------");
-        for(Map.Entry<String, Object> e : values.entrySet()) {
+        for (Map.Entry<String, Object> e : values.entrySet()) {
             System.out.println(e.getKey() + " - " + e.getValue());
         }
         System.out.println("----- END READ -----");
@@ -116,9 +116,10 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     private void write() {
         Map<String, Object> values = new HashMap<>();
-        values.put("test_boolean", "false");
-        values.put("test_long", "40");
+        values.put("test_boolean", false);
+        values.put("test_long", 40);
         values.put("test_int", 50);
+        values.put("test_enum", null);
 
         BackupHelper.with(this).write(preferencesManager, values);
     }

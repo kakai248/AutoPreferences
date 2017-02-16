@@ -63,7 +63,7 @@ public class PreferencesHelper {
     }
 
     public <T extends Enum<T>> void putEnum(String key, T value) {
-        editor.putString(key, value.name()).apply();
+        editor.putString(key, value != null ? value.name() : "").apply();
     }
 
     public boolean getBoolean(String key, boolean defValue) {
@@ -91,7 +91,8 @@ public class PreferencesHelper {
     }
 
     public <T extends Enum<T>> T getEnum(String key, T defValue, Class<T> type) {
-        return Enum.valueOf(type, sharedPreferences.getString(key, defValue.name()));
+        String name = sharedPreferences.getString(key, defValue != null ? defValue.name() : null);
+        return name != null && !name.isEmpty() ? Enum.valueOf(type, name) : null;
     }
 
     public Map<String, ?> getAll() {
