@@ -18,14 +18,17 @@ public class AutoPreferencesAnnotatedClass {
 
     private TypeElement clazz;
     private String packageName;
+    private String className;
     private Name name;
     private List<PreferenceAnnotatedField> fields;
-    private boolean annotate;
+    private boolean annotateMethods;
 
     public AutoPreferencesAnnotatedClass(Elements elementUtils, TypeElement clazz)
             throws IllegalArgumentException {
 
         this.clazz = clazz;
+
+        AutoPreferences annotation = clazz.getAnnotation(AutoPreferences.class);
 
         // Package
         PackageElement pkg = elementUtils.getPackageOf(clazz);
@@ -33,10 +36,10 @@ public class AutoPreferencesAnnotatedClass {
 
         // Class
         name = clazz.getSimpleName();
+        className = annotation.className();
 
         // Annotate getters and setters
-        AutoPreferences annotation = clazz.getAnnotation(AutoPreferences.class);
-        annotate = annotation.annotate();
+        annotateMethods = annotation.annotateMethods();
 
         // Fields
         fields = new ArrayList<>();
@@ -56,16 +59,20 @@ public class AutoPreferencesAnnotatedClass {
         return packageName;
     }
 
-    public Name getName() {
-        return name;
+    public String getClassName() {
+        return name.toString();
+    }
+
+    public String getUserDefinedClassName() {
+        return className;
     }
 
     public ClassName getSuperclass() {
         return ClassName.get(clazz);
     }
 
-    public boolean useAnnotations() {
-        return annotate;
+    public boolean annotateMethods() {
+        return annotateMethods;
     }
 
     public List<PreferenceAnnotatedField> getFields() {

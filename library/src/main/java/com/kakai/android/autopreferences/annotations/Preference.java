@@ -13,6 +13,8 @@ public @interface Preference {
 
     int stringRes() default 0;
 
+    boolean omitGetterPrefix() default false;
+
     boolean remove() default false;
 
     boolean contains() default false;

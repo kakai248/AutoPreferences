@@ -1,5 +1,7 @@
 package com.kakai.android.autopreferences.compiler.generator.type;
 
+import android.annotation.SuppressLint;
+
 import com.kakai.android.autopreferences.annotations.PreferenceGetter;
 import com.kakai.android.autopreferences.annotations.PreferenceSetter;
 import com.kakai.android.autopreferences.compiler.AutoPreferencesAnnotatedClass;
@@ -37,9 +39,9 @@ abstract class BaseTypeGenerator implements TypeGenerator {
     public MethodSpec generateGetter(FieldSpec context, FieldSpec helper) {
         MethodSpec.Builder builder = baseGetterBuilder()
                 .addStatement("return $N.$L($N.getString($L), $L)",
-                        helper, getterMethodName(), context, field.getStringRes(), field.getVariable());
+                        helper, getterHelperMethodName(), context, field.getStringRes(), field.getVariable());
 
-        if(clazz.useAnnotations()) {
+        if (clazz.annotateMethods()) {
             builder = builder.addAnnotation(generateAnnotation(PreferenceGetter.class));
         }
 
@@ -50,9 +52,9 @@ abstract class BaseTypeGenerator implements TypeGenerator {
     public MethodSpec generateSetter(FieldSpec context, FieldSpec helper) {
         MethodSpec.Builder builder = baseSetterBuilder()
                 .addStatement("$N.$L($N.getString($L), $L)",
-                        helper, setterMethodName(), context, field.getStringRes(), field.getVariable());
+                        helper, setterHelperMethodName(), context, field.getStringRes(), field.getVariable());
 
-        if(clazz.useAnnotations()) {
+        if (clazz.annotateMethods()) {
             builder = builder.addAnnotation(generateAnnotation(PreferenceSetter.class));
         }
 
@@ -63,7 +65,7 @@ abstract class BaseTypeGenerator implements TypeGenerator {
     public MethodSpec generateRemove(FieldSpec context, FieldSpec helper) {
         return baseRemoveBuilder()
                 .addStatement("$N.$L($N.getString($L))",
-                        helper, removeMethodName(), context, field.getStringRes())
+                        helper, removeHelperMethodName(), context, field.getStringRes())
                 .build();
     }
 
@@ -71,7 +73,7 @@ abstract class BaseTypeGenerator implements TypeGenerator {
     public MethodSpec generateContains(FieldSpec context, FieldSpec helper) {
         return baseContainsBuilder()
                 .addStatement("return $N.$L($N.getString($L))",
-                        helper, containsMethodName(), context, field.getStringRes())
+                        helper, containsHelperMethodName(), context, field.getStringRes())
                 .build();
     }
 
@@ -81,50 +83,50 @@ abstract class BaseTypeGenerator implements TypeGenerator {
         methods.add(generateGetter(context, helper));
         methods.add(generateSetter(context, helper));
 
-        if(field.generateRemove()) {
+        if (field.generateRemove()) {
             methods.add(generateRemove(context, helper));
         }
 
-        if(field.generateContains()) {
+        if (field.generateContains()) {
             methods.add(generateContains(context, helper));
         }
 
         return methods;
     }
 
-    protected abstract String getterMethodName();
+    protected abstract String getterHelperMethodName();
 
-    protected abstract String setterMethodName();
+    protected abstract String setterHelperMethodName();
 
-    protected String removeMethodName() {
+    protected String removeHelperMethodName() {
         return REMOVE_METHOD_NAME;
     }
 
-    protected String containsMethodName() {
+    protected String containsHelperMethodName() {
         return CONTAINS_METHOD_NAME;
     }
 
     MethodSpec.Builder baseGetterBuilder() {
-        return MethodSpec.methodBuilder(getterName())
+        return MethodSpec.methodBuilder(getterMethodName())
                 .addModifiers(Modifier.PUBLIC)
                 .returns(field.getTypeName());
     }
 
     MethodSpec.Builder baseSetterBuilder() {
-        return MethodSpec.methodBuilder(setterName())
+        return MethodSpec.methodBuilder(setterMethodName())
                 .addModifiers(Modifier.PUBLIC)
                 .returns(void.class)
                 .addParameter(field.getTypeName(), field.getName().toString());
     }
 
     MethodSpec.Builder baseRemoveBuilder() {
-        return MethodSpec.methodBuilder(removeName())
+        return MethodSpec.methodBuilder(removeMethodName())
                 .addModifiers(Modifier.PUBLIC)
                 .returns(void.class);
     }
 
     MethodSpec.Builder baseContainsBuilder() {
-        return MethodSpec.methodBuilder(containsName())
+        return MethodSpec.methodBuilder(containsMethodName())
                 .addModifiers(Modifier.PUBLIC)
                 .returns(boolean.class);
     }
@@ -136,20 +138,26 @@ abstract class BaseTypeGenerator implements TypeGenerator {
                 .build();
     }
 
-    private String getterName() {
-        return getterPrefix() + Utils.lowerToUpperCamel(field.getName().toString());
+    private String getterMethodName() {
+        return methodName(field.omitGetterPrefix() ? "" : getterPrefix());
     }
 
-    private String setterName() {
-        return setterPrefix() + Utils.lowerToUpperCamel(field.getName().toString());
+    private String setterMethodName() {
+        return methodName(setterPrefix());
     }
 
-    private String removeName() {
-        return removePrefix() + Utils.lowerToUpperCamel(field.getName().toString());
+    private String removeMethodName() {
+        return methodName(removePrefix());
     }
 
-    private String containsName() {
-        return containsPrefix() + Utils.lowerToUpperCamel(field.getName().toString());
+    private String containsMethodName() {
+        return methodName(containsPrefix());
+    }
+
+    @SuppressLint("NewApi")
+    private String methodName(String prefix) {
+        String name = field.getName().toString();
+        return !prefix.isEmpty() ? prefix + Utils.lowerToUpperCamel(name) : name;
     }
 
     protected String getterPrefix() {

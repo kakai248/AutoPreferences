@@ -15,9 +15,9 @@ class EnumTypeGenerator extends BaseTypeGenerator implements TypeGenerator {
     public MethodSpec generateGetter(FieldSpec context, FieldSpec helper) {
         MethodSpec.Builder builder = baseGetterBuilder()
                 .addStatement("return $N.$L($N.getString($L), $L, $T.class)",
-                        helper, getterMethodName(), context, field.getStringRes(), field.getVariable(), field.getTypeName());
+                        helper, getterHelperMethodName(), context, field.getStringRes(), field.getVariable(), field.getTypeName());
 
-        if(clazz.useAnnotations()) {
+        if(clazz.annotateMethods()) {
             builder = builder.addAnnotation(generateAnnotation(PreferenceGetter.class));
         }
 
@@ -25,12 +25,12 @@ class EnumTypeGenerator extends BaseTypeGenerator implements TypeGenerator {
     }
 
     @Override
-    protected String getterMethodName() {
+    protected String getterHelperMethodName() {
         return "getEnum";
     }
 
     @Override
-    protected String setterMethodName() {
+    protected String setterHelperMethodName() {
         return "putEnum";
     }
 }

@@ -12,6 +12,7 @@ public class PreferenceAnnotatedField {
     private TypeName typeName;
     private Name name;
     private int stringRes;
+    private boolean omitGetterPrefix;
     private boolean generateRemove;
     private boolean generateContains;
     private int tag;
@@ -23,6 +24,7 @@ public class PreferenceAnnotatedField {
 
         Preference annotation = variable.getAnnotation(Preference.class);
         this.stringRes = annotation.stringRes();
+        this.omitGetterPrefix = annotation.omitGetterPrefix();
         this.generateRemove = annotation.remove();
         this.generateContains = annotation.contains();
         this.tag = annotation.tag();
@@ -42,6 +44,10 @@ public class PreferenceAnnotatedField {
 
     public int getStringRes() {
         return stringRes;
+    }
+
+    public boolean omitGetterPrefix() {
+        return omitGetterPrefix;
     }
 
     public boolean generateRemove() {

@@ -12,10 +12,6 @@ public class Utils {
         return CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, name);
     }
 
-    public static String lowerCamelToLowerSnake(String name) {
-        return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
-    }
-
     public static DeclaredType getEnumType(Types typeUtils, Elements elementUtils) {
         return typeUtils.getDeclaredType(
                 elementUtils.getTypeElement(Enum.class.getCanonicalName()),

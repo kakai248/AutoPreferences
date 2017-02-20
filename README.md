@@ -1,5 +1,6 @@
 AutoPreferences
 =========================
+[![](https://jitpack.io/v/kakai248/AutoPreferences.svg)](https://jitpack.io/#kakai248/AutoPreferences)
 
 This library generates a preferences class to manage preferences
 in Android based on annotations.
@@ -8,21 +9,23 @@ Installation
 ------
 This library requires Java 8 to run the annotation processor.
 
+Check the latest version in the badge above.
+
 ```groovy
-compile "com.github.kakai248.AutoPreferences:library:v0.1.2"
-annotationProcessor "com.github.kakai248.AutoPreferences:compiler:v0.1.2"
+compile "com.github.kakai248.AutoPreferences:library:${LATEST_VERSION}"
+annotationProcessor "com.github.kakai248.AutoPreferences:compiler:${LATEST_VERSION}"
 ```
 
 **Backup (optional):**
 
 ```groovy
-compile "com.github.kakai248.AutoPreferences:backup:v0.1.2"
+compile "com.github.kakai248.AutoPreferences:backup:${LATEST_VERSION}"
 ```
 
 Usage
 -------
 ```java
-@AutoPreferences(annotate = true)
+@AutoPreferences(annotateMethods = true, className = "PreferencesManager")
 public abstract class AbstractPreferencesManager {
 
     public static final int GROUP1 = 1;
@@ -32,12 +35,15 @@ public abstract class AbstractPreferencesManager {
 }
 ```
 
-You need to create a class and annotate it with `@AutoPreferences`. If you also use `annotate = true`,
+You need to create a class and annotate it with `@AutoPreferences`. If you also use `annotateMethods = true`,
 it will annotate each getter and setter generated with `@PreferenceGetter` and `@PreferenceSetter`
 (this is needed to use the backup feature).
 
-If you prefix the class name with `Abstract`, like in the example, the processor will generate a class
-with the same name except the prefix. If it doesn't start with `Abstract`, it will have the same name
+You can use `className = "PreferencesManager"` to choose the name of the generated class. If you pass an empty string or don't override this method, the processor will generate the class name based on the name of the abstract one:
+
+- If you prefix the class name with `Abstract`, like in the example, the processor will generate a class
+with the same name except the prefix.
+- If it doesn't start with `Abstract`, it will have the same name
 and the processor will add the prefix `Auto`.
 
 | Annotated class name | Generated class name |
@@ -48,7 +54,9 @@ and the processor will add the prefix `Auto`.
 To define a preferences, annotate a field with `@Preference`. Give the preference a key (using a string
 resource, to be compatible with PreferenceFragments) using `stringRes = R.string.test_boolean`.
 
-You can also pass `remove = true` and `contains = true` to generate a remove and a contains method for
+You can pass `omitGetterPrefix = true` to let the processor generate getters without prefix, i.e. without `get` or `is` for booleans.
+
+There is also `remove = true` and `contains = true` to generate a remove and a contains method for
 that preference.
 
 Finally you can define an int (`tag = 10`) to be used as tag. This tag will be in the `@PreferenceGetter`

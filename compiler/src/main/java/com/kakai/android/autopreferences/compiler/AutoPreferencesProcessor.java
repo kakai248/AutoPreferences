@@ -44,7 +44,7 @@ public final class AutoPreferencesProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
 
-        for(Element annotatedElement : env.getElementsAnnotatedWith(AutoPreferences.class)) {
+        for (Element annotatedElement : env.getElementsAnnotatedWith(AutoPreferences.class)) {
 
             // Check if a class has been annotated with @AutoPreferences
             if (annotatedElement.getKind() != ElementKind.CLASS) {
@@ -56,13 +56,8 @@ public final class AutoPreferencesProcessor extends AbstractProcessor {
             AutoPreferencesAnnotatedClass clazz =
                     new AutoPreferencesAnnotatedClass(elementUtils, (TypeElement) annotatedElement);
 
-            ClassGenerator classGenerator = new ClassGenerator(typeUtils, elementUtils, filer, clazz);
-
-            try {
-                messager.printMessage(Diagnostic.Kind.NOTE, classGenerator.generate());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            new ClassGenerator(typeUtils, elementUtils, filer, clazz)
+                    .generate();
         }
 
         return true;

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,6 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TestActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = TestActivity.class.getSimpleName();
 
     private static final int PERMISSION_REQUEST = 1000;
 
@@ -107,19 +110,19 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private void read() {
         Map<String, Object> values = BackupHelper.with(this).read(preferencesManager, Preference.ALL);
 
-        System.out.println("------- READ -------");
+        Log.d(TAG, "------- READ -------");
         for (Map.Entry<String, Object> e : values.entrySet()) {
             System.out.println(e.getKey() + " - " + e.getValue());
         }
-        System.out.println("----- END READ -----");
+        Log.d(TAG, "----- END READ -----");
     }
 
     private void write() {
         Map<String, Object> values = new HashMap<>();
-        values.put("test_boolean", false);
-        values.put("test_long", 40);
-        values.put("test_int", 50);
-        values.put("test_enum", null);
+        values.put(getString(R.string.test_boolean), false);
+        values.put(getString(R.string.test_long), 40);
+        values.put(getString(R.string.test_int), 50);
+        values.put(getString(R.string.test_enum), null);
 
         BackupHelper.with(this).write(preferencesManager, values);
     }
@@ -138,16 +141,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void restore() {
-        /*String json = "{" +
-                "\"test_boolean\":false," +
-                "\"test_string\":\"restorestring\"," +
-                "\"test_long\":1000," +
-                "\"test_enum\":\"TEST_3\"," +
-                "\"test_int\":500," +
-                "\"test_stringset\":[\"Restore 21\", \"Restore 22\"]," +
-                "\"test_float\":50.0" +
-                "}";*/
-
         try {
             BackupHelper.with(this).restore(restoreFile, preferencesManager);
         } catch (IOException e) {

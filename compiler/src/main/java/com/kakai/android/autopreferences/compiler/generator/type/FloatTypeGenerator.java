@@ -10,12 +10,12 @@ class FloatTypeGenerator extends BaseTypeGenerator implements TypeGenerator {
     }
 
     @Override
-    protected String getterMethodName() {
+    protected String getterHelperMethodName() {
         return "getFloat";
     }
 
     @Override
-    protected String setterMethodName() {
+    protected String setterHelperMethodName() {
         return "putFloat";
     }
 }

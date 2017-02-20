@@ -9,5 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 public @interface AutoPreferences {
 
-    boolean annotate() default false;
+    boolean annotateMethods() default false;
+
+    String className() default "";
 }
