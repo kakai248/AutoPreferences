@@ -18,6 +18,7 @@ public class AutoPreferencesAnnotatedClass {
 
     private TypeElement clazz;
     private String packageName;
+    private String className;
     private Name name;
     private List<PreferenceAnnotatedField> fields;
     private boolean annotateMethods;
@@ -27,15 +28,17 @@ public class AutoPreferencesAnnotatedClass {
 
         this.clazz = clazz;
 
+        AutoPreferences annotation = clazz.getAnnotation(AutoPreferences.class);
+
         // Package
         PackageElement pkg = elementUtils.getPackageOf(clazz);
         packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
         // Class
         name = clazz.getSimpleName();
+        className = annotation.className();
 
         // Annotate getters and setters
-        AutoPreferences annotation = clazz.getAnnotation(AutoPreferences.class);
         annotateMethods = annotation.annotateMethods();
 
         // Fields
@@ -56,8 +59,12 @@ public class AutoPreferencesAnnotatedClass {
         return packageName;
     }
 
-    public Name getName() {
-        return name;
+    public String getClassName() {
+        return name.toString();
+    }
+
+    public String getUserDefinedClassName() {
+        return className;
     }
 
     public ClassName getSuperclass() {

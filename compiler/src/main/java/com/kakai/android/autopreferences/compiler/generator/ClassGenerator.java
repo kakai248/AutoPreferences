@@ -1,5 +1,6 @@
 package com.kakai.android.autopreferences.compiler.generator;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.kakai.android.autopreferences.PreferencesHelper;
@@ -109,13 +110,22 @@ public class ClassGenerator {
         return methods;
     }
 
+    @SuppressLint("NewApi")
     private String className() {
-        String className = clazz.getName().toString();
+        String userDefinedClassName = clazz.getUserDefinedClassName();
 
-        if(className.startsWith(CLASS_NAME_PREFIX_ABSTRACT)) {
-            return className.substring(CLASS_NAME_PREFIX_ABSTRACT.length());
+        if(userDefinedClassName.isEmpty()) {
+            // Use default name generation
+            String className = clazz.getClassName();
+
+            if(className.startsWith(CLASS_NAME_PREFIX_ABSTRACT)) {
+                return className.substring(CLASS_NAME_PREFIX_ABSTRACT.length());
+            } else {
+                return CLASS_NAME_PREFIX_AUTO + className;
+            }
         } else {
-            return CLASS_NAME_PREFIX_AUTO + className;
+            // Use name chosen by user
+            return userDefinedClassName;
         }
     }
 }

@@ -10,4 +10,6 @@ import java.lang.annotation.Target;
 public @interface AutoPreferences {
 
     boolean annotateMethods() default false;
+
+    String className() default "";
 }
