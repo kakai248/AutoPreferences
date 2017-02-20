@@ -39,7 +39,7 @@ abstract class BaseTypeGenerator implements TypeGenerator {
                 .addStatement("return $N.$L($N.getString($L), $L)",
                         helper, getterMethodName(), context, field.getStringRes(), field.getVariable());
 
-        if(clazz.useAnnotations()) {
+        if(clazz.annotateMethods()) {
             builder = builder.addAnnotation(generateAnnotation(PreferenceGetter.class));
         }
 
@@ -52,7 +52,7 @@ abstract class BaseTypeGenerator implements TypeGenerator {
                 .addStatement("$N.$L($N.getString($L), $L)",
                         helper, setterMethodName(), context, field.getStringRes(), field.getVariable());
 
-        if(clazz.useAnnotations()) {
+        if(clazz.annotateMethods()) {
             builder = builder.addAnnotation(generateAnnotation(PreferenceSetter.class));
         }
 

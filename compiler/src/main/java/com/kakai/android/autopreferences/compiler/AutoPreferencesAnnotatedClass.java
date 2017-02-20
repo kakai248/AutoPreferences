@@ -20,7 +20,7 @@ public class AutoPreferencesAnnotatedClass {
     private String packageName;
     private Name name;
     private List<PreferenceAnnotatedField> fields;
-    private boolean annotate;
+    private boolean annotateMethods;
 
     public AutoPreferencesAnnotatedClass(Elements elementUtils, TypeElement clazz)
             throws IllegalArgumentException {
@@ -36,7 +36,7 @@ public class AutoPreferencesAnnotatedClass {
 
         // Annotate getters and setters
         AutoPreferences annotation = clazz.getAnnotation(AutoPreferences.class);
-        annotate = annotation.annotate();
+        annotateMethods = annotation.annotateMethods();
 
         // Fields
         fields = new ArrayList<>();
@@ -64,8 +64,8 @@ public class AutoPreferencesAnnotatedClass {
         return ClassName.get(clazz);
     }
 
-    public boolean useAnnotations() {
-        return annotate;
+    public boolean annotateMethods() {
+        return annotateMethods;
     }
 
     public List<PreferenceAnnotatedField> getFields() {

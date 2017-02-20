@@ -6,7 +6,7 @@ import com.kakai.android.autopreferences.annotations.Preference;
 import java.util.HashSet;
 import java.util.Set;
 
-@AutoPreferences(annotate = true)
+@AutoPreferences(annotateMethods = true)
 public abstract class AbstractPreferencesManager {
 
     public static final int GROUP1 = 1;

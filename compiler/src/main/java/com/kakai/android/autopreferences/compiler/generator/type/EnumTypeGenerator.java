@@ -17,7 +17,7 @@ class EnumTypeGenerator extends BaseTypeGenerator implements TypeGenerator {
                 .addStatement("return $N.$L($N.getString($L), $L, $T.class)",
                         helper, getterMethodName(), context, field.getStringRes(), field.getVariable(), field.getTypeName());
 
-        if(clazz.useAnnotations()) {
+        if(clazz.annotateMethods()) {
             builder = builder.addAnnotation(generateAnnotation(PreferenceGetter.class));
         }
 
