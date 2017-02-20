@@ -12,26 +12,26 @@ public abstract class AbstractPreferencesManager {
     public static final int GROUP1 = 1;
     public static final int GROUP2 = 2;
 
-    @Preference(stringRes = R.string.test_boolean, tag = GROUP1)
-    boolean testBoolean = true;
+    @Preference(stringRes = R.string.test_boolean, omitGetterPrefix = true, tag = GROUP1)
+    final boolean testBoolean = true;
 
     @Preference(stringRes = R.string.test_string)
-    String testString = "stuff";
+    final String testString = "stuff";
 
     @Preference(stringRes = R.string.test_int, remove = true, contains = true, tag = GROUP1)
-    int testInt = 10;
+    final int testInt = 10;
 
     @Preference(stringRes = R.string.test_float, tag = GROUP2)
-    float testFloat = 5.0f;
+    final float testFloat = 5.0f;
 
     @Preference(stringRes = R.string.test_long, tag = GROUP1)
-    long testLong = 20;
+    final long testLong = 20;
 
     @Preference(stringRes = R.string.test_stringset)
-    Set<String> testStringSet;
+    final Set<String> testStringSet;
 
     @Preference(stringRes = R.string.test_enum)
-    TestEnum testEnum = TestEnum.TEST_2;
+    final TestEnum testEnum = TestEnum.TEST_2;
 
     int shouldNotShow = 0;
 

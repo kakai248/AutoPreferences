@@ -58,6 +58,7 @@ public class BackupHelper {
         return map;
     }
 
+    @SuppressWarnings("unchecked")
     public void write(Object obj, Map<String, Object> values) {
         List<Method> methods = new ArrayList<>(Arrays.asList(obj.getClass().getDeclaredMethods()));
 
