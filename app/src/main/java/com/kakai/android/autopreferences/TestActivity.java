@@ -50,15 +50,15 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
         preferencesManager = new PreferencesManager(this);
 
-        tvInt = (TextView) findViewById(R.id.tvInt);
-        btnChangeInt = (Button) findViewById(R.id.btnChangeInt);
-        btnResetInt = (Button) findViewById(R.id.btnResetInt);
-        btnRead = (Button) findViewById(R.id.btnRead);
-        btnWrite = (Button) findViewById(R.id.btnWrite);
-        tvBackupFile = (TextView) findViewById(R.id.tvBackupFile);
-        tvRestoreFile = (TextView) findViewById(R.id.tvRestoreFile);
-        btnBackup = (Button) findViewById(R.id.btnBackup);
-        btnRestore = (Button) findViewById(R.id.btnRestore);
+        tvInt = findViewById(R.id.tvInt);
+        btnChangeInt = findViewById(R.id.btnChangeInt);
+        btnResetInt = findViewById(R.id.btnResetInt);
+        btnRead = findViewById(R.id.btnRead);
+        btnWrite = findViewById(R.id.btnWrite);
+        tvBackupFile = findViewById(R.id.tvBackupFile);
+        tvRestoreFile = findViewById(R.id.tvRestoreFile);
+        btnBackup = findViewById(R.id.btnBackup);
+        btnRestore = findViewById(R.id.btnRestore);
 
         btnChangeInt.setOnClickListener(this);
         btnResetInt.setOnClickListener(this);
