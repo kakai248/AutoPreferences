@@ -11,9 +11,9 @@ sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
 targetCompatibility = rootProject.ext.targetCompatibilityVersion
 
 dependencies {
-    api project(':library')
+    implementation project(':library')
 
-    implementation 'com.google.android:android:4.1.1.4'
+    compileOnly 'com.google.android:android:4.1.1.4'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
 }
 
