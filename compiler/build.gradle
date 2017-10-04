@@ -13,9 +13,9 @@ targetCompatibility = rootProject.ext.targetCompatibilityVersion
 dependencies {
     implementation project(':library')
 
-    api 'com.squareup:javapoet:1.9.0'
-    api 'com.google.android:android:4.1.1.4'
-    api group: 'com.google.guava', name: 'guava', version: '21.0'
+    implementation 'com.squareup:javapoet:1.9.0'
+    implementation 'com.google.android:android:4.1.1.4'
+    implementation group: 'com.google.guava', name: 'guava', version: '21.0'
 }
 
 apply from: '../android-jcenter.gradle'
