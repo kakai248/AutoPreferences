@@ -1,4 +1,4 @@
-apply plugin: 'java-library'
+apply plugin: 'java'
 
 ext {
     artifact = 'backup'
@@ -11,10 +11,10 @@ sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
 targetCompatibility = rootProject.ext.targetCompatibilityVersion
 
 dependencies {
-    implementation project(':library')
+    compile project(':library')
 
     compileOnly 'com.google.android:android:4.1.1.4'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
 }
 
 apply from: '../android-jcenter.gradle'
