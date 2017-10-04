@@ -13,8 +13,8 @@ targetCompatibility = rootProject.ext.targetCompatibilityVersion
 dependencies {
     implementation project(':library')
 
-    compileOnly 'com.google.android:android:4.1.1.4'
-    compileOnly 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
+    implementation 'com.google.android:android:4.1.1.4'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
 }
 
 apply from: '../android-jcenter.gradle'
