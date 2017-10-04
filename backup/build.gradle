@@ -1,8 +1,4 @@
-plugins {
-    id "me.tatarka.retrolambda" version "3.5.0"
-}
-
-apply plugin: 'java'
+apply plugin: 'java-library'
 
 ext {
     artifact = 'backup'
@@ -11,15 +7,14 @@ ext {
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
+targetCompatibility = rootProject.ext.targetCompatibilityVersion
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':library')
+    implementation project(':library')
 
-    compile 'com.google.android:android:4.1.1.4'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
+    compileOnly 'com.google.android:android:4.1.1.4'
+    compileOnly 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
 }
 
 apply from: '../android-jcenter.gradle'
